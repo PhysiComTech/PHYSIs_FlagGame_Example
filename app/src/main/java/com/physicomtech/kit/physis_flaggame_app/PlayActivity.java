@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.physicomtech.kit.physis_flaggame_app.helper.PlayManager;
 import com.physicomtech.kit.physis_flaggame_app.helper.TextSpeech;
 import com.physicomtech.kit.physislibrary.PHYSIsBLEActivity;
+import com.physicomtech.kit.physislibrary.ble.BluetoothLEManager;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -86,6 +87,11 @@ public class PlayActivity extends PHYSIsBLEActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
+
+        if(!BluetoothLEManager.getInstance(getApplicationContext()).getEnable()){
+            Toast.makeText(getApplicationContext(), "블루투스 활성화 후 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+            finish();
+        }
 
         checkPermissions();                 // 앱 권한 체크 함수 호출
         init();                             // 위젯 및 기능 클래스 생성 함수 호출
